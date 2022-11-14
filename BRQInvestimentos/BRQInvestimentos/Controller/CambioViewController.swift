@@ -41,8 +41,9 @@ class CambioViewController: UIViewController {
         customizacaoView()
         customizacaoQuantidade()
         
-        // labels recebe os valores da outra tela
+        // labels que altera os valores da outra tela
         alteracaoLabel()
+        
     }
     
     func alteracaoLabel() {
@@ -73,20 +74,23 @@ class CambioViewController: UIViewController {
         // Disponibilidade dos Botões
         disponibilidadeBotao(botaoComprar, carteira, moeda, iso: siglaMoeda)
         disponibilidadeBotao(botaoVender, carteira, moeda, iso: siglaMoeda)
+        quantidadeTextField.text = ""
     }
     
     // Disponibilidade do Botão.
     func disponibilidadeBotao(_ botao: UIButton, _ carteira: Carteira, _ moeda: Currency, iso: String) {
+        
         guard let moedaPrecoCompra = moeda.buy,
               let dinheiroDisponivel = carteira.carteiraPessoal[iso],
               let stringDinheiroDisponivel = quantidadeTextField.text else { return }
         
+        
         var precoTotal = Double()
         var quantidadeInserida = Int()
-        
         if let intQuantidadeInserida = Int(stringDinheiroDisponivel) {
             quantidadeInserida = intQuantidadeInserida
             precoTotal = moedaPrecoCompra * Double(intQuantidadeInserida)
+            print("passou aqui ")
         }
         
         if botao.tag == 1 {
@@ -104,9 +108,10 @@ class CambioViewController: UIViewController {
                 desabilitado(botaoVender)
             }
         }
+        
     }
-
-   // Função Comprar / Vender
+    
+    // Função Comprar / Vender
     @IBAction func BotoesPressionados(_ sender: Any) {
         guard let carteira = carteira,
               let moedaSelecionada = moedaSelecionada,
@@ -118,14 +123,14 @@ class CambioViewController: UIViewController {
         
         var acaoBotao: String
         var precoTransacao: String
-    
+        
         if (sender as AnyObject).tag == 0 {
             acaoBotao = "Comprar"
             carteira.comprar(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
             precoTransacao = carteira.precoTotalCompraFormatado
             MensagemViewController.mensagem = criacaoMensagem(acaoBotao: acaoBotao, quantidade: campoQuantidade, precoTransacao: precoTransacao )
-           
-           
+            
+            
         } else {
             acaoBotao = "Vender"
             carteira.vender(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
@@ -144,7 +149,7 @@ class CambioViewController: UIViewController {
               let moeda = moedaSelecionada else { return ""}
         return "Parabéns! Você acabou de \(acaoBotao) \(quantidade) \(siglaMoeda) - \(moeda.name), totalizando \(precoTransacao)"
     }
-
+    
     // MARK: - Funções Botões (Desabilitado / Habilitado)
     // Desabilitado
     func desabilitado(_ botao: UIButton) {
@@ -177,3 +182,4 @@ class CambioViewController: UIViewController {
         quantidadeTextField.attributedPlaceholder = NSAttributedString(string: "Quantidade", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 151.0, green: 151.0, blue: 151.0, alpha: 1.0)])
     }
 }
+

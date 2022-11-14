@@ -40,15 +40,15 @@ class Carteira {
     var carteiraPessoal: [String: Int]
     
     init() {
-        var carteira = [String: Int]()
+        var carteiraUsuario = [String: Int]()
         
         // inicia todas as siglas em 0
         for sigla in siglaMoedasAPI {
-            carteira[sigla] = 0
+            carteiraUsuario[sigla] = 0
         }
         
         self.saldo = 1000
-        self.carteiraPessoal = carteira
+        self.carteiraPessoal = carteiraUsuario
         self.precoTotalVenda = 0
         self.precoTotalCompra = 0
     }
