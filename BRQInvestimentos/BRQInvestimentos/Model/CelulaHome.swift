@@ -2,18 +2,18 @@ import Foundation
 import UIKit
 
 class CelulaHome: UITableViewCell {
-    // View / Labels - HomeViewController
+    // View
     @IBOutlet weak var celulaView: CustomizacaoCelula!
+    // Sigla
     @IBOutlet weak var siglaLabel: UILabel!
+    // Porcentagem
     @IBOutlet weak var porcentagemLabel: UILabel!
     
 }
-
     // Customização da Celula - HomeViewController
 class CustomizacaoCelula: UIView {
-    
+        
     func valoresCelula() {
-       
         self.layer.cornerRadius = 15
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
@@ -59,7 +59,6 @@ extension UIColor {
                 }
             }
         }
-
         return nil
     }
 }

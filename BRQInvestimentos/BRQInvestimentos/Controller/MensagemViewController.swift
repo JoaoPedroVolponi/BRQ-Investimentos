@@ -24,7 +24,7 @@ class MensagemViewController: UIViewController {
         botaoHome.layer.cornerRadius = 20
     }
     
-    // Botão Home
+    // MARK: - Botão Home
     @IBAction func botaoHomePressionado(_ sender: Any) {
         guard let storyboard = storyboard,
               let cambioHomeController = storyboard.instantiateViewController(identifier: "HomeViewController") as? HomeViewController,

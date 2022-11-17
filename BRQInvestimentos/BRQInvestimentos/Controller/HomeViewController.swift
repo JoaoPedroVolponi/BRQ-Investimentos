@@ -51,8 +51,8 @@ class HomeViewController: UITableViewController {
             cambioViewController.carteira = carteira // Carteira
             
             //Celula
-            guard let celula = tableView.cellForRow(at: indexPath) as? CelulaHome else {return}
-            guard let siglaMoeda = celula.siglaLabel.text else {return}
+            guard let celula = tableView.cellForRow(at: indexPath) as? CelulaHome,
+                  let siglaMoeda = celula.siglaLabel.text else {return}
             cambioViewController.siglaMoeda = siglaMoeda
             
             navigationController.pushViewController(cambioViewController, animated: true)
@@ -85,13 +85,15 @@ class HomeViewController: UITableViewController {
             break
         }
         
+        // Adicionando Porcentagem
         celula.porcentagemLabel.text = moeda.variationString
-        celula.porcentagemLabel.corLabel(variacaoPorcentagem: moeda.variation)
+        celula.porcentagemLabel.corLabel(variacaoPorcentagem: moeda.variation) // Cor porcentagem
     }
     
     //MARK: - API (Requisição)
+    //57edaf28 - chave API
     func requisicaoAPI() {
-        guard let url = URL(string: "https://api.hgbrasil.com/finance?array_limit=1&fields=only_results,currencies&key=a6cb5965") else { return }
+        guard let url = URL(string: "https://api.hgbrasil.com/finance?array_limit=1&fields=only_results,currencies&key=57edaf28") else { return }
         let session = URLSession(configuration: .default)
         
         let task = session.dataTask(with: url) { (data, response, error) in
@@ -107,7 +109,7 @@ class HomeViewController: UITableViewController {
         task.resume()
     }
     
-   // JSON Decoder
+    // JSON Decoder
     func decoderJSON(_ financeData: Data) {
         let decoder = JSONDecoder()
         do {

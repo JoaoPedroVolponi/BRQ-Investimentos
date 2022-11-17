@@ -22,10 +22,10 @@ class CambioViewController: UIViewController {
     @IBOutlet weak var botaoVender: UIButton!
     @IBOutlet weak var botaoComprar: UIButton!
     
-    // campo quantidade
+    // Campo quantidade
     @IBOutlet weak var quantidadeTextField: UITextField!
     
-    // Variaveis
+    // Variáveis
     var moedaSelecionada: Currency?
     var siglaMoeda = String()
     var currencyISO = String()
@@ -41,11 +41,10 @@ class CambioViewController: UIViewController {
         customizacaoView()
         customizacaoQuantidade()
         
-        // labels que altera os valores da outra tela
         alteracaoLabel()
-        
+
     }
-    
+    // MARK: - Alterando Labels
     func alteracaoLabel() {
         guard let moeda = moedaSelecionada,
               let carteira = carteira,
@@ -54,10 +53,9 @@ class CambioViewController: UIViewController {
         // Sigla Moeda
         siglaNomeLabel.text = "\(siglaMoeda) - \(moeda.name)"
         
-        // Variação moeda
+        // Variação Moeda
         variacaoLabel.text = moeda.variationString
-        // Cor variação
-        variacaoLabel.corLabel(variacaoPorcentagem: moeda.variation)
+        variacaoLabel.corLabel(variacaoPorcentagem: moeda.variation)  // Cor variação
         
         // Preço de Compra
         precoCompraLabel.text = ("Compra: " + moeda.compraString)
@@ -77,20 +75,18 @@ class CambioViewController: UIViewController {
         quantidadeTextField.text = ""
     }
     
-    // Disponibilidade do Botão.
+    // MARK: - Disponibilidade Botões (Habilitado / Desabilitado)
     func disponibilidadeBotao(_ botao: UIButton, _ carteira: Carteira, _ moeda: Currency, iso: String) {
         
         guard let moedaPrecoCompra = moeda.buy,
               let dinheiroDisponivel = carteira.carteiraPessoal[iso],
               let stringDinheiroDisponivel = quantidadeTextField.text else { return }
         
-        
         var precoTotal = Double()
         var quantidadeInserida = Int()
         if let intQuantidadeInserida = Int(stringDinheiroDisponivel) {
             quantidadeInserida = intQuantidadeInserida
             precoTotal = moedaPrecoCompra * Double(intQuantidadeInserida)
-            print("passou aqui ")
         }
         
         if botao.tag == 1 {
@@ -110,8 +106,7 @@ class CambioViewController: UIViewController {
         }
         
     }
-    
-    // Função Comprar / Vender
+    // MARK: - Botões Pressionados (Botões Comprar / Vender)
     @IBAction func BotoesPressionados(_ sender: Any) {
         guard let carteira = carteira,
               let moedaSelecionada = moedaSelecionada,
@@ -128,9 +123,7 @@ class CambioViewController: UIViewController {
             acaoBotao = "Comprar"
             carteira.comprar(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
             precoTransacao = carteira.precoTotalCompraFormatado
-            MensagemViewController.mensagem = criacaoMensagem(acaoBotao: acaoBotao, quantidade: campoQuantidade, precoTransacao: precoTransacao )
-            
-            
+             
         } else {
             acaoBotao = "Vender"
             carteira.vender(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
@@ -143,7 +136,7 @@ class CambioViewController: UIViewController {
         
     }
     
-    // Função Criação Mensagem
+    // MARK: - Mensagem
     func criacaoMensagem(acaoBotao: String, quantidade: Int, precoTransacao: String ) -> String {
         guard let carteira = carteira,
               let moeda = moedaSelecionada else { return ""}
@@ -151,6 +144,7 @@ class CambioViewController: UIViewController {
     }
     
     // MARK: - Funções Botões (Desabilitado / Habilitado)
+    
     // Desabilitado
     func desabilitado(_ botao: UIButton) {
         botao.isEnabled = true
@@ -162,11 +156,13 @@ class CambioViewController: UIViewController {
     }
     
     // MARK: - Funções de customização
+    
     // Botões
     func customizacaoBotoes() {
         botaoComprar.layer.cornerRadius = 15
         botaoVender.layer.cornerRadius = 15
     }
+    
     // View
     func customizacaoView() {
         viewCambio.layer.borderWidth = 1

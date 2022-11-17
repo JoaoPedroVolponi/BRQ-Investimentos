@@ -53,10 +53,10 @@ class Carteira {
         self.precoTotalCompra = 0
     }
     
-    func vender(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) -> Double {
+    func vender(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
         guard let valorMoeda = carteiraPessoal[siglaMoeda],
               let precoVendaMoeda = moeda.sell else {
-            return precoTotalVenda
+            return
         }
         
         let precoVenda = precoVendaMoeda * Double(quantidade)
@@ -67,34 +67,23 @@ class Carteira {
         }
         
         precoTotalVenda = precoVenda
-        
-        
-        return precoTotalVenda
     }
     
-    func comprar(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) -> Double {
-        guard let currencyAmount = carteiraPessoal[siglaMoeda],
+    func comprar(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
+        guard let valorMoeda = carteiraPessoal[siglaMoeda],
               let precoCompraMoeda = moeda.buy else {
-            return precoTotalCompra
+            return
         }
         
         let precoCompra = precoCompraMoeda * Double(quantidade)
         
         if saldo - precoCompra > 0 {
-            carteiraPessoal[siglaMoeda] = currencyAmount + quantidade
+            carteiraPessoal[siglaMoeda] = valorMoeda + quantidade
             saldo -= precoCompra
         }
         
         precoTotalCompra = precoCompra
-        
-        return precoTotalCompra
-    }
     
-    
-    func arredonda(saldoDisponivel: Double, casasdecimais: Int)-> Double{
-        let formato = String(casasdecimais)+"f"
-        return Double(String(format: "%."+formato, saldoDisponivel))!
-    }
-    
+    } 
 }
 
