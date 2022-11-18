@@ -55,9 +55,7 @@ class Carteira {
     
     func vender(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
         guard let valorMoeda = carteiraPessoal[siglaMoeda],
-              let precoVendaMoeda = moeda.sell else {
-            return
-        }
+              let precoVendaMoeda = moeda.sell else { return }
         
         let precoVenda = precoVendaMoeda * Double(quantidade)
         
@@ -83,7 +81,7 @@ class Carteira {
         }
         
         precoTotalCompra = precoCompra
-    
+        
     } 
 }
 

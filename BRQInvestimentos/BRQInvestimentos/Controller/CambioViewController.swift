@@ -42,7 +42,7 @@ class CambioViewController: UIViewController {
         customizacaoQuantidade()
         
         alteracaoLabel()
-
+        
     }
     // MARK: - Alterando Labels
     func alteracaoLabel() {
@@ -123,24 +123,20 @@ class CambioViewController: UIViewController {
             acaoBotao = "Comprar"
             carteira.comprar(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
             precoTransacao = carteira.precoTotalCompraFormatado
-             
         } else {
             acaoBotao = "Vender"
             carteira.vender(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
             precoTransacao = carteira.precoTotalVendaFormatado
-            MensagemViewController.mensagem = criacaoMensagem(acaoBotao: acaoBotao, quantidade: campoQuantidade, precoTransacao: precoTransacao)
-            
         }
+        //Informações enviadas para a próxima tela.
+        MensagemViewController.acaoBotaoMensagem = acaoBotao
+        MensagemViewController.campoQuantidadeMensagem = campoQuantidade
+        MensagemViewController.siglaMoedaMensagem = siglaMoeda
+        MensagemViewController.moedaSelecionadaMensagem = moedaSelecionada
+        MensagemViewController.precoTransacaoMensagem = precoTransacao
+        
         MensagemViewController.title = acaoBotao.capitalized
         navigationController.pushViewController(MensagemViewController, animated: true)
-        
-    }
-    
-    // MARK: - Mensagem
-    func criacaoMensagem(acaoBotao: String, quantidade: Int, precoTransacao: String ) -> String {
-        guard let carteira = carteira,
-              let moeda = moedaSelecionada else { return ""}
-        return "Parabéns! Você acabou de \(acaoBotao) \(quantidade) \(siglaMoeda) - \(moeda.name), totalizando \(precoTransacao)"
     }
     
     // MARK: - Funções Botões (Desabilitado / Habilitado)
@@ -156,7 +152,6 @@ class CambioViewController: UIViewController {
     }
     
     // MARK: - Funções de customização
-    
     // Botões
     func customizacaoBotoes() {
         botaoComprar.layer.cornerRadius = 15
@@ -174,8 +169,7 @@ class CambioViewController: UIViewController {
     func customizacaoQuantidade() {
         quantidadeTextField.layer.borderWidth = 1
         quantidadeTextField.layer.cornerRadius = 10
-        quantidadeTextField.layer.borderColor = UIColor(red: 151.0, green: 151.0, blue: 151.0, alpha: 1.0).cgColor
-        quantidadeTextField.attributedPlaceholder = NSAttributedString(string: "Quantidade", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 151.0, green: 151.0, blue: 151.0, alpha: 1.0)])
+        quantidadeTextField.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
+        quantidadeTextField.attributedPlaceholder = NSAttributedString(string: "Quantidade", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1)])
     }
 }
-

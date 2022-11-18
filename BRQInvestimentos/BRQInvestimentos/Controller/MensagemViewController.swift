@@ -9,19 +9,23 @@ class MensagemViewController: UIViewController {
     // Variáveis
     var mensagem: String?
     var precoTotal = Double()
+    var carteira: Carteira?
     
+    // CambioViewController
+    var acaoBotaoMensagem: String = ""
+    var campoQuantidadeMensagem: Int = 0
+    var siglaMoedaMensagem: String = ""
+    var moedaSelecionadaMensagem: Currency?
+    var precoTransacaoMensagem: String = ""
+    var nomeMoedaMensagem: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let mensagem = mensagem else {return}
-        mensagemLabel.text = mensagem
+        estilizacaoBotaoHome() // Bordas
         
-        estilizacaoBotao() // botaoHome
+        guard let nomeMoedaMensagem = moedaSelecionadaMensagem?.name else {return}
         
-    }
-    
-    func estilizacaoBotao() {
-        botaoHome.layer.cornerRadius = 20
+        mensagemLabel.text = "Parabéns! Você acabou de \(acaoBotaoMensagem) \(campoQuantidadeMensagem) \(siglaMoedaMensagem) - \(nomeMoedaMensagem), totalizando \(precoTransacaoMensagem)"
     }
     
     // MARK: - Botão Home
@@ -31,5 +35,10 @@ class MensagemViewController: UIViewController {
               let navigationController = navigationController else { return }
         
         navigationController.popToRootViewController(animated: true)
+    }
+    
+    // MARK: - Estilização
+    func estilizacaoBotaoHome() {
+        botaoHome.layer.cornerRadius = 20
     }
 }

@@ -9,8 +9,8 @@ struct Currencies: Codable {
     let source: String
     let USD, EUR, GBP, ARS, AUD, BTC, CAD, CNY, JPY: Currency
 }
-    
-    // Dados da Moeda
+
+// Dados da Moeda
 struct Currency: Codable {
     let name: String
     let buy: Double?

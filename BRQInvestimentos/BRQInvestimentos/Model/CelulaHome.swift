@@ -10,9 +10,9 @@ class CelulaHome: UITableViewCell {
     @IBOutlet weak var porcentagemLabel: UILabel!
     
 }
-    // Customização da Celula - HomeViewController
+// Customização da Celula - HomeViewController
 class CustomizacaoCelula: UIView {
-        
+    
     func valoresCelula() {
         self.layer.cornerRadius = 15
         self.layer.borderWidth = 1
@@ -20,45 +20,16 @@ class CustomizacaoCelula: UIView {
     }
 }
 
-    // Cor Porcentagem
+// Cor Porcentagem
 extension UILabel {
     
     func corLabel(variacaoPorcentagem: Double) {
-        if variacaoPorcentagem < 0 { // red #D0021B
-//            self.textColor = UIColor.red
-            self.textColor = UIColor(hex: "#D0021Bff")
+        if variacaoPorcentagem < 0 {
+            self.textColor = UIColor(red: 208/255, green: 2/255, blue: 27/255, alpha: 1)   // #D0021B
         } else if variacaoPorcentagem > 0 {
-//            self.textColor = UIColor.green // green 7ED321
-            self.textColor = UIColor(hex: "#7ED321ff")
+            self.textColor = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1) // #7ED321
         } else {
-            self.textColor = UIColor.white
+            self.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1) // #FFFFFF
         }
-    }
-}
-
-extension UIColor {
-    public convenience init?(hex: String) {
-        let r, g, b, a: CGFloat
-
-        if hex.hasPrefix("#") {
-            let start = hex.index(hex.startIndex, offsetBy: 1)
-            let hexColor = String(hex[start...])
-
-            if hexColor.count == 8 {
-                let scanner = Scanner(string: hexColor)
-                var hexNumber: UInt64 = 0
-
-                if scanner.scanHexInt64(&hexNumber) {
-                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
-                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
-                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
-                    a = CGFloat(hexNumber & 0x000000ff) / 255
-
-                    self.init(red: r, green: g, blue: b, alpha: a)
-                    return
-                }
-            }
-        }
-        return nil
     }
 }
