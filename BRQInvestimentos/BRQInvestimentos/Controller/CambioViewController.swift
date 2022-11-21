@@ -34,15 +34,21 @@ class CambioViewController: UIViewController {
     var valorDeVenda = Double()
     var valorDeCompra = Double()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Customização
-        customizacaoBotoes()
-        customizacaoView()
-        customizacaoQuantidade()
+        
+        quantidadeTextField.delegate = self
         
         alteracaoLabel()
         
+        // Customização
+        BordasView()
+        BordasBotoes()
+        BordasQuantidade()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+         view.addGestureRecognizer(tap)
     }
     // MARK: - Alterando Labels
     func alteracaoLabel() {
@@ -72,40 +78,46 @@ class CambioViewController: UIViewController {
         // Disponibilidade dos Botões
         disponibilidadeBotao(botaoComprar, carteira, moeda, iso: siglaMoeda)
         disponibilidadeBotao(botaoVender, carteira, moeda, iso: siglaMoeda)
-        quantidadeTextField.text = ""
+        
+        quantidadeTextField.text =  ""
     }
     
     // MARK: - Disponibilidade Botões (Habilitado / Desabilitado)
     func disponibilidadeBotao(_ botao: UIButton, _ carteira: Carteira, _ moeda: Currency, iso: String) {
-        
         guard let moedaPrecoCompra = moeda.buy,
-              let dinheiroDisponivel = carteira.carteiraPessoal[iso],
-              let stringDinheiroDisponivel = quantidadeTextField.text else { return }
+              let moedaEmCarteira = carteira.carteiraPessoal[iso],
+              let stringQuantidadeTextField = quantidadeTextField.text else { return }
         
         var precoTotal = Double()
         var quantidadeInserida = Int()
-        if let intQuantidadeInserida = Int(stringDinheiroDisponivel) {
-            quantidadeInserida = intQuantidadeInserida
-            precoTotal = moedaPrecoCompra * Double(intQuantidadeInserida)
+        
+        if let IntQuantidadeInserida = Int(stringQuantidadeTextField) {
+            quantidadeInserida = IntQuantidadeInserida
+            precoTotal = moedaPrecoCompra * Double(IntQuantidadeInserida)
         }
         
         if botao.tag == 1 {
-            // BotaoComprar
+            // Botão Comprar
             if (carteira.saldo < moedaPrecoCompra || carteira.saldo < precoTotal) {
-                habilitado(botaoComprar)
+                desabilitadoBotaoComprar()
             } else {
-                desabilitado(botaoComprar)
+                habilitadoBotaoComprar()
             }
         } else {
-            // BotaoVender
-            if (quantidadeInserida > dinheiroDisponivel || moeda.sell == nil || dinheiroDisponivel == 0) {
-                habilitado(botaoVender)
+            // Botão Vender
+            if (quantidadeInserida > moedaEmCarteira || moeda.sell == nil || moedaEmCarteira == 0) {
+                desabilitadoBotaoVender()
             } else {
-                desabilitado(botaoVender)
+                habilitadoBotaoVender()
             }
         }
         
+        if (stringQuantidadeTextField.isEmpty || quantidadeInserida <= 0) {
+            desabilitadoBotaoVender()
+            desabilitadoBotaoComprar()
+        }
     }
+
     // MARK: - Botões Pressionados (Botões Comprar / Vender)
     @IBAction func BotoesPressionados(_ sender: Any) {
         guard let carteira = carteira,
@@ -139,37 +151,69 @@ class CambioViewController: UIViewController {
         navigationController.pushViewController(MensagemViewController, animated: true)
     }
     
-    // MARK: - Funções Botões (Desabilitado / Habilitado)
-    
-    // Desabilitado
-    func desabilitado(_ botao: UIButton) {
-        botao.isEnabled = true
+    @objc func dismissKeyboard() {
+     view.endEditing(true)
     }
     
-    // Habilitado
-    func habilitado(_ botao: UIButton) {
-        botao.isEnabled = false
+    override func viewDidDisappear(_ animated: Bool) {
+        alteracaoLabel()
     }
     
-    // MARK: - Funções de customização
-    // Botões
-    func customizacaoBotoes() {
+    
+    // MARK: - Funções Customização.
+
+    func BordasBotoes(){
+        botaoComprar.layer.masksToBounds = true
         botaoComprar.layer.cornerRadius = 15
+        botaoVender.layer.masksToBounds = true
         botaoVender.layer.cornerRadius = 15
     }
-    
-    // View
-    func customizacaoView() {
+   
+    func BordasView(){
         viewCambio.layer.borderWidth = 1
         viewCambio.layer.cornerRadius = 15
         viewCambio.layer.borderColor = UIColor.white.cgColor
+        
     }
     
-    // Quantidade (TextField)
-    func customizacaoQuantidade() {
+    func BordasQuantidade() {
         quantidadeTextField.layer.borderWidth = 1
         quantidadeTextField.layer.cornerRadius = 10
         quantidadeTextField.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
         quantidadeTextField.attributedPlaceholder = NSAttributedString(string: "Quantidade", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1)])
     }
+    
+    // Desabilitado / Habilitado
+    func desabilitadoBotaoComprar() {
+        botaoComprar.isEnabled = false
+        botaoComprar.alpha = 0.45
+    }
+    
+    func habilitadoBotaoComprar(){
+        botaoComprar.isEnabled = true
+        botaoComprar.alpha = 1
+    }
+    
+    func desabilitadoBotaoVender() {
+        botaoVender.isEnabled = false
+        botaoVender.alpha = 0.45
+    }
+    
+    func habilitadoBotaoVender(){
+        botaoVender.isEnabled = true
+        botaoVender.alpha = 1
+    }
 }
+
+// MARK: - Extensão Delegate
+    extension CambioViewController: UITextFieldDelegate {
+        
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            guard let moedaSelecionada = moedaSelecionada,
+                  let carteira = carteira else { return }
+            
+            disponibilidadeBotao(botaoComprar, carteira, moedaSelecionada, iso: siglaMoeda)
+            disponibilidadeBotao(botaoVender, carteira, moedaSelecionada, iso: siglaMoeda)
+        }
+    }
+
