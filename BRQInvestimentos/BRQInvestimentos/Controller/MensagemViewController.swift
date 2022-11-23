@@ -19,7 +19,8 @@ class MensagemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        estilizacaoBotaoHome()
+        BordaBotao(botaoHome)
+        
         guard let nomeMoedaMensagem = moedaSelecionadaMensagem?.name else {return}
         
         mensagemLabel.text = "Parabéns! Você acabou de \(acaoBotaoMensagem) \(campoQuantidadeMensagem) \(siglaMoedaMensagem) - \(nomeMoedaMensagem), totalizando \(precoTransacaoMensagem)"
@@ -32,9 +33,9 @@ class MensagemViewController: UIViewController {
         
         navigationController.popToRootViewController(animated: true)
     }
-    
-    // MARK: - Estilização
-    func estilizacaoBotaoHome() {
-        botaoHome.layer.cornerRadius = 20
+    // MARK: - Função de Customização.
+    func BordaBotao(_ botao: UIButton) {
+        botao.layer.masksToBounds = true
+        botao.layer.cornerRadius = 15
     }
 }

@@ -32,11 +32,11 @@ class CambioViewController: UIViewController {
         quantidadeTextField.delegate = self
         
         alteracaoLabel()
+        BordaBotao(botaoVender)
+        BordaBotao(botaoComprar)
         
-        // Customização
-        BordasView()
-        BordasBotoes()
-        BordasQuantidade()
+        BordaView()
+        BordaQuantidade()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -65,8 +65,8 @@ class CambioViewController: UIViewController {
         
         quantidadeTextField.text =  ""
     }
-    
     // MARK: - Disponibilidade Botões (Habilitado / Desabilitado)
+    
     func disponibilidadeBotao(_ botao: UIButton, _ carteira: Carteira, _ moeda: Currency, iso: String) {
         guard let moedaPrecoCompra = moeda.buy,
               let moedaEmCarteira = carteira.carteiraPessoal[iso],
@@ -83,25 +83,25 @@ class CambioViewController: UIViewController {
         if botao.tag == 1 {
             // Botão Comprar
             if (carteira.saldo < moedaPrecoCompra || carteira.saldo < precoTotal) {
-                botaoDesabilitado(botaoComprar)
+                BotaoDesabilitado(botaoComprar)
             } else {
-                botaoHabilitado(botaoComprar)
+                BotaoHabilitado(botaoComprar)
             }
         } else {
             // Botão Vender
             if (quantidadeInserida > moedaEmCarteira || moeda.sell == nil || moedaEmCarteira == 0) {
-                botaoDesabilitado(botaoVender)
+                BotaoDesabilitado(botaoVender)
             } else {
-                botaoHabilitado(botaoVender)
+                BotaoHabilitado(botaoVender)
             }
         }
         if (stringQuantidadeTextField.isEmpty || quantidadeInserida <= 0) {
-            botaoDesabilitado(botaoComprar)
-            botaoDesabilitado(botaoVender)
+            BotaoDesabilitado(botaoComprar)
+            BotaoDesabilitado(botaoVender)
         }
     }
-    
     // MARK: - Botões Pressionados (Botões Comprar / Vender)
+    
     @IBAction func BotoesPressionados(_ sender: Any) {
         guard let carteira = carteira,
               let moedaSelecionada = moedaSelecionada,
@@ -141,43 +141,39 @@ class CambioViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         alteracaoLabel()
     }
-    
-    
     // MARK: - Funções Customização.
     
-    func BordasBotoes(){
-        botaoComprar.layer.masksToBounds = true
-        botaoComprar.layer.cornerRadius = 15
-        botaoVender.layer.masksToBounds = true
-        botaoVender.layer.cornerRadius = 15
-    }
-    
-    func BordasView(){
+    func BordaView() {
         viewCambio.layer.borderWidth = 1
         viewCambio.layer.cornerRadius = 15
         viewCambio.layer.borderColor = UIColor.white.cgColor
         
     }
     
-    func BordasQuantidade() {
+    func BordaQuantidade() {
         quantidadeTextField.layer.borderWidth = 1
         quantidadeTextField.layer.cornerRadius = 10
         quantidadeTextField.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
         quantidadeTextField.attributedPlaceholder = NSAttributedString(string: "Quantidade", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1)])
     }
     
-    func botaoHabilitado(_ botao: UIButton) {
+    func BordaBotao(_ botao: UIButton) {
+        botao.layer.masksToBounds = true
+        botao.layer.cornerRadius = 15
+    }
+    
+    func BotaoHabilitado(_ botao: UIButton) {
         botao.isEnabled = true
         botao.alpha = 1
     }
     
-    func botaoDesabilitado( _ botao: UIButton) {
+    func BotaoDesabilitado( _ botao: UIButton) {
         botao.isEnabled = false
         botao.alpha = 0.5
     }
 }
-
     // MARK: - Extensão Delegate
+
 extension CambioViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {

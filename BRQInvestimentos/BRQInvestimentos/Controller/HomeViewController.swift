@@ -9,9 +9,8 @@ class HomeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // API
-        requisicaoAPI()
         
+        requisicaoAPI()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,6 +61,7 @@ class HomeViewController: UITableViewController {
     }
     
     //MARK: - Criação da celula da tabela
+    
     func adicionandoLabels(_ celula: CelulaHome, for indexPath: IndexPath) {
         let moeda = moedas[indexPath.section]
         switch moeda.name {
@@ -91,11 +91,8 @@ class HomeViewController: UITableViewController {
         celula.porcentagemLabel.text = moeda.variationString
         celula.porcentagemLabel.corLabel(variacaoPorcentagem: moeda.variation) // Cor porcentagem
     }
-    
-    
-    
     //MARK: - API (Requisição)
-    //57edaf28 - chave API
+
     func requisicaoAPI() {
         guard let url = URL(string: URLApi) else { return }
         let session = URLSession(configuration: .default)
