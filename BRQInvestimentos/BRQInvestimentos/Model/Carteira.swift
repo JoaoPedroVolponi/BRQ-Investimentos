@@ -63,7 +63,6 @@ class Carteira {
             saldo += precoVenda
             carteiraPessoal[siglaMoeda] = valorMoeda - quantidade
         }
-        
         precoTotalVenda = precoVenda
     }
     
@@ -72,16 +71,13 @@ class Carteira {
               let precoCompraMoeda = moeda.buy else {
             return
         }
-        
         let precoCompra = precoCompraMoeda * Double(quantidade)
         
         if saldo - precoCompra > 0 {
             carteiraPessoal[siglaMoeda] = valorMoeda + quantidade
             saldo -= precoCompra
         }
-        
         precoTotalCompra = precoCompra
-        
-    } 
+    }
 }
 

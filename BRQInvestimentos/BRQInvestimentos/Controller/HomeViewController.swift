@@ -3,18 +3,15 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
-    // Variáveis
-    var moedas = [Currency]()
-    let carteira = Carteira()
-    
-    // API
     let URLApi = "https://api.hgbrasil.com/finance?array_limit=1&fields=only_results,currencies&key=57edaf28"
+    let carteira = Carteira()
+    var moedas = [Currency]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        requisicaoAPI() // API
-            
+        // API
+        requisicaoAPI()
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

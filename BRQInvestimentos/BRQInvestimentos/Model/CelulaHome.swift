@@ -2,15 +2,13 @@ import Foundation
 import UIKit
 
 class CelulaHome: UITableViewCell {
-    // View
+    
     @IBOutlet weak var celulaView: CustomizacaoCelula!
-    // Sigla
     @IBOutlet weak var siglaLabel: UILabel!
-    // Porcentagem
     @IBOutlet weak var porcentagemLabel: UILabel!
     
 }
-// Customização da Celula - HomeViewController
+
 class CustomizacaoCelula: UIView {
     
     func valoresCelula() {
@@ -20,7 +18,6 @@ class CustomizacaoCelula: UIView {
     }
 }
 
-// Cor Porcentagem
 extension UILabel {
     
     func corLabel(variacaoPorcentagem: Double) {

@@ -10,7 +10,6 @@ struct Currencies: Codable {
     let USD, EUR, GBP, ARS, AUD, BTC, CAD, CNY, JPY: Currency
 }
 
-// Dados da Moeda
 struct Currency: Codable {
     let name: String
     let buy: Double?
@@ -20,7 +19,6 @@ struct Currency: Codable {
         return String(format: "%.2f", variation) + "%"
     }
     
-    // Formatação campo Compra
     var compraString: String {
         if let compra = buy {
             let numeroCompra = NSNumber(value: compra)
@@ -32,7 +30,6 @@ struct Currency: Codable {
         return "R$0.00"
     }
     
-    // Formatação campo Venda
     var vendaString: String {
         if let venda = sell {
             let numeroVenda = NSNumber(value: venda)
@@ -44,7 +41,6 @@ struct Currency: Codable {
         return "R$0.00"
     }
     
-    // Formato BRL (R$)
     func formatacaoBRL() -> NumberFormatter {
         let formato = NumberFormatter()
         formato.numberStyle = .currency
