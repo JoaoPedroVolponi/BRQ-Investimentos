@@ -79,16 +79,13 @@ class CambioViewController: UIViewController {
             quantidadeInserida = IntQuantidadeInserida
             precoTotal = moedaPrecoCompra * Double(IntQuantidadeInserida)
         }
-        
-        if botao.tag == 1 {
-            // Botão Comprar
+        if botao.tag == 1 { // Botão Comprar
             if (carteira.saldo < moedaPrecoCompra || carteira.saldo < precoTotal) {
                 BotaoDesabilitado(botaoComprar)
             } else {
                 BotaoHabilitado(botaoComprar)
             }
-        } else {
-            // Botão Vender
+        } else {  // Botão Vender
             if (quantidadeInserida > moedaEmCarteira || moeda.sell == nil || moedaEmCarteira == 0) {
                 BotaoDesabilitado(botaoVender)
             } else {
@@ -113,19 +110,15 @@ class CambioViewController: UIViewController {
         
         var acaoBotao: String
         var precoTransacao: String
-        
-      //  if (sender as AnyObject).tag == 0 {
+
         if sender.tag == 0 {
             guard let valorCompra = moedaSelecionada.buy else {return}
             acaoBotao = "Comprar"
-           // carteira.comprar(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
             carteira.comprarVender(quantidade: campoQuantidade, sigla: siglaMoeda, valor: valorCompra, botaoTag: sender.tag, moeda: moedaSelecionada)
-          //  precoTransacao = carteira.precoTotalCompraFormatado
             precoTransacao = carteira.precoTotalCompraFormatado
         } else {
             guard let valorVenda = moedaSelecionada.sell else {return}
             acaoBotao = "Vender"
-            // carteira.vender(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
             carteira.comprarVender(quantidade: campoQuantidade, sigla: siglaMoeda, valor: valorVenda, botaoTag: sender.tag, moeda: moedaSelecionada)
             precoTransacao = carteira.precoTotalVendaFormatado
         }
