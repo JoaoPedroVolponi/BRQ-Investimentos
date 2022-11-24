@@ -102,7 +102,7 @@ class CambioViewController: UIViewController {
     }
     // MARK: - Botões Pressionados (Botões Comprar / Vender)
     
-    @IBAction func BotoesPressionados(_ sender: Any) {
+    @IBAction func BotoesPressionados(_ sender: UIButton) {
         guard let carteira = carteira,
               let moedaSelecionada = moedaSelecionada,
               let stringCampoQuantidade = quantidadeTextField.text,
@@ -114,13 +114,19 @@ class CambioViewController: UIViewController {
         var acaoBotao: String
         var precoTransacao: String
         
-        if (sender as AnyObject).tag == 0 {
+      //  if (sender as AnyObject).tag == 0 {
+        if sender.tag == 0 {
+            guard let valorCompra = moedaSelecionada.buy else {return}
             acaoBotao = "Comprar"
-            carteira.comprar(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
+           // carteira.comprar(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
+            carteira.comprarVender(quantidade: campoQuantidade, sigla: siglaMoeda, valor: valorCompra, botaoTag: sender.tag, moeda: moedaSelecionada)
+          //  precoTransacao = carteira.precoTotalCompraFormatado
             precoTransacao = carteira.precoTotalCompraFormatado
         } else {
+            guard let valorVenda = moedaSelecionada.sell else {return}
             acaoBotao = "Vender"
-            carteira.vender(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
+            // carteira.vender(quantidade: campoQuantidade, siglaMoeda, moedaSelecionada)
+            carteira.comprarVender(quantidade: campoQuantidade, sigla: siglaMoeda, valor: valorVenda, botaoTag: sender.tag, moeda: moedaSelecionada)
             precoTransacao = carteira.precoTotalVendaFormatado
         }
         //Informações enviadas para a próxima tela.
@@ -141,6 +147,7 @@ class CambioViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         alteracaoLabel()
     }
+    
     // MARK: - Funções Customização.
     
     func BordaView() {

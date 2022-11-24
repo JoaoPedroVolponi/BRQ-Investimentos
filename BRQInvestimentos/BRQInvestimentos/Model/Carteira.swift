@@ -53,31 +53,74 @@ class Carteira {
         self.precoTotalCompra = 0
     }
     
-    func vender(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
-        guard let valorMoeda = carteiraPessoal[siglaMoeda],
-              let precoVendaMoeda = moeda.sell else { return }
+    func comprarVender(quantidade: Int, sigla: String, valor: Double, botaoTag: Int, moeda: Currency) {
+        guard let saldoMoeda = carteiraPessoal[sigla] else {return}
         
-        let precoVenda = precoVendaMoeda * Double(quantidade)
-        
-        if valorMoeda >= quantidade {
-            saldo += precoVenda
-            carteiraPessoal[siglaMoeda] = valorMoeda - quantidade
+        if botaoTag == 0 {
+            guard let precoCompraMoeda = moeda.buy else {return}
+            
+            let valorTotalCompra = precoCompraMoeda * Double(quantidade)
+            carteiraPessoal[sigla] = saldoMoeda + quantidade
+            saldo -= valorTotalCompra
+            
+            precoTotalCompra = valorTotalCompra
+        } else {
+            guard let precoVendaMoeda = moeda.sell else {return}
+            
+            let valorTotalVenda = precoVendaMoeda * Double(quantidade)
+            carteiraPessoal[sigla] = saldoMoeda - quantidade
+            saldo += valorTotalVenda
+            
+            precoTotalVenda = valorTotalVenda
         }
-        precoTotalVenda = precoVenda
-    }
-    
-    func comprar(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
-        guard let valorMoeda = carteiraPessoal[siglaMoeda],
-              let precoCompraMoeda = moeda.buy else {
-            return
-        }
-        let precoCompra = precoCompraMoeda * Double(quantidade)
-        
-        if saldo - precoCompra > 0 {
-            carteiraPessoal[siglaMoeda] = valorMoeda + quantidade
-            saldo -= precoCompra
-        }
-        precoTotalCompra = precoCompra
     }
 }
 
+// REMOVER
+//    func vender(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
+//        guard let valorMoeda = carteiraPessoal[siglaMoeda],
+//              let precoVendaMoeda = moeda.sell else { return }
+//
+//        let precoVenda = precoVendaMoeda * Double(quantidade)
+//
+//        if valorMoeda >= quantidade {
+//            saldo += precoVenda
+//            carteiraPessoal[siglaMoeda] = valorMoeda - quantidade
+//        }
+//        precoTotalVenda = precoVenda
+//    }
+//
+//    func comprar(quantidade: Int, _ siglaMoeda: String, _ moeda: Currency) {
+//        guard let valorMoeda = carteiraPessoal[siglaMoeda],
+//              let precoCompraMoeda = moeda.buy else {
+//            return
+//        }
+//        let precoCompra = precoCompraMoeda * Double(quantidade)
+//
+//        if saldo - precoCompra > 0 {
+//            carteiraPessoal[siglaMoeda] = valorMoeda + quantidade
+//            saldo -= precoCompra
+//        }
+//        precoTotalCompra = precoCompra
+//    }
+
+//    func comprarVender(quantidade: Int, siglaMoeda: String, moeda: Currency, senderTag: Int) -> Double {
+//        guard let valorMoeda = carteiraPessoal[siglaMoeda],
+//              let precoVendaMoeda = moeda.sell,
+//              let precoCompraMoeda = moeda.buy else { return 0.0 }
+//    }
+//    if(sender as AnyObject).tag == 0 {
+//        let precoCompra = precoCompraMoeda * Double(quantidade)
+//        carteiraPessoal[siglaMoeda] = valorMoeda + quantidade
+//        saldo -= precoCompra
+//        precoTotalCompra = precoCompra
+//        return precoTotalCompra
+//    } else {
+//        let precoVenda = precoVendaMoeda * Double(quantidade)
+//        carteiraPessoal[siglaMoeda] = valorMoeda + quantidade
+//        saldo += precoVenda
+//        carteiraPessoal[siglaMoeda] = valorMoeda - quantidade
+//        precoTotalVenda = precoVenda
+//        return precoTotalVenda
+//    }
+//
