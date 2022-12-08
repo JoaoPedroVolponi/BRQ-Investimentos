@@ -18,6 +18,10 @@ class CambioViewController: UIViewController {
     
     @IBOutlet weak var quantidadeTextField: UITextField!
     
+    var customizacaoBotao = CustomizacaoBotao()
+    var customizacaoView = CustomizacaoView()
+    var customizacaoQuantidade = CustomizacaoTextField()
+    
     var moedaSelecionada: Currency?
     var siglaMoeda = String()
     var currencyISO = String()
@@ -33,11 +37,12 @@ class CambioViewController: UIViewController {
         
         alteracaoLabel()
         
-        // Customização
-       BordaBotao(botaoVender)
-       BordaBotao(botaoComprar)
-       BordaView()
-       BordaQuantidade()
+        customizacaoBotao.BordaBotao(botaoComprar)
+        customizacaoBotao.BordaBotao(botaoVender)
+        
+        customizacaoView.BordaView(viewCambio)
+        
+        customizacaoQuantidade.BordaQuantidade(quantidadeTextField)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -82,20 +87,20 @@ class CambioViewController: UIViewController {
         }
         if botao.tag == 1 { // Botão Comprar
             if (carteira.saldo < moedaPrecoCompra || carteira.saldo < precoTotal) {
-                BotaoDesabilitado(botaoComprar)
+                customizacaoBotao.BotaoDesabilitado(botaoComprar)
             } else {
-                BotaoHabilitado(botaoComprar)
+                customizacaoBotao.BotaoHabilitado(botaoComprar)
             }
         } else {  // Botão Vender
             if (quantidadeInserida > moedaEmCarteira || moeda.sell == nil || moedaEmCarteira == 0) {
-                BotaoDesabilitado(botaoVender)
+                customizacaoBotao.BotaoDesabilitado(botaoVender)
             } else {
-                BotaoHabilitado(botaoVender)
+                customizacaoBotao.BotaoHabilitado(botaoVender)
             }
         }
         if (stringQuantidadeTextField.isEmpty || quantidadeInserida <= 0) {
-            BotaoDesabilitado(botaoComprar)
-            BotaoDesabilitado(botaoVender)
+            customizacaoBotao.BotaoDesabilitado(botaoComprar)
+            customizacaoBotao.BotaoDesabilitado(botaoVender)
         }
     }
     // MARK: - Botões Pressionados (Botões Comprar / Vender)
@@ -111,7 +116,7 @@ class CambioViewController: UIViewController {
         
         var acaoBotao: String
         var precoTransacao: String
-
+        
         if sender.tag == 0 {
             guard let valorCompra = moedaSelecionada.buy else {return}
             acaoBotao = "Comprar"
@@ -142,7 +147,6 @@ class CambioViewController: UIViewController {
         alteracaoLabel()
     }
 }
-    // MARK: - Extensão Delegate
 
 extension CambioViewController: UITextFieldDelegate {
     

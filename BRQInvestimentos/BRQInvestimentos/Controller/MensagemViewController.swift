@@ -6,6 +6,8 @@ class MensagemViewController: UIViewController {
     @IBOutlet weak var botaoHome: UIButton!
     @IBOutlet weak var mensagemLabel: UILabel!
     
+    var customizacaoBotao = CustomizacaoBotao()
+    
     var mensagem: String?
     var precoTotal = Double()
     var carteira: Carteira?
@@ -19,7 +21,8 @@ class MensagemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        BordaBotao(botaoHome)
+        
+        customizacaoBotao.BordaBotao(botaoHome)
         
         guard let nomeMoedaMensagem = moedaSelecionadaMensagem?.name else {return}
         
@@ -32,10 +35,5 @@ class MensagemViewController: UIViewController {
               let navigationController = navigationController else { return }
         
         navigationController.popToRootViewController(animated: true)
-    }
-    // MARK: - Função de Customização.
-    func BordaBotao(_ botao: UIButton) {
-        botao.layer.masksToBounds = true
-        botao.layer.cornerRadius = 15
     }
 }

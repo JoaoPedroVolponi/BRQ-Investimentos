@@ -11,7 +11,6 @@ class HomeViewController: UITableViewController {
         super.viewDidLoad()
         
         requisicaoAPI()
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,8 +87,7 @@ class HomeViewController: UITableViewController {
             break
         }
         
-        // Adicionando Porcentagem
         celula.porcentagemLabel.text = moeda.variationString
-        celula.porcentagemLabel.corLabel(variacaoPorcentagem: moeda.variation) // Cor porcentagem
+        celula.porcentagemLabel.corLabel(variacaoPorcentagem: moeda.variation)
     }
 }

@@ -48,5 +48,3 @@ struct Currency: Codable {
         return formato
     }
 }
-
-

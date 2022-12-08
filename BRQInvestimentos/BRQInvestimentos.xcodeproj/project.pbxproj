@@ -14,7 +14,9 @@
 		CE5D967228FF2F1100B33196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5D967128FF2F1100B33196 /* Assets.xcassets */; };
 		CE5D967528FF2F1100B33196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5D967328FF2F1100B33196 /* LaunchScreen.storyboard */; };
 		CE74B4272934F96200F9781D /* ConsumoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74B4262934F96200F9781D /* ConsumoAPI.swift */; };
-		CE74B4292934FE6B00F9781D /* Customizacao.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74B4282934FE6B00F9781D /* Customizacao.swift */; };
+		CE74B42F293533C800F9781D /* CustomizacaoBotao.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74B42E293533C800F9781D /* CustomizacaoBotao.swift */; };
+		CE74B4312935386A00F9781D /* CustomizacaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74B4302935386A00F9781D /* CustomizacaoView.swift */; };
+		CE74B433293538E100F9781D /* CustomizacaoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74B432293538E100F9781D /* CustomizacaoTextField.swift */; };
 		CE82C8EF2901C12D00006CB2 /* CelulaHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82C8EE2901C12D00006CB2 /* CelulaHome.swift */; };
 		CE82C8F12901C14000006CB2 /* RetornoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82C8F02901C14000006CB2 /* RetornoAPI.swift */; };
 		CE97260629117A030082F503 /* Carteira.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97260529117A030082F503 /* Carteira.swift */; };
@@ -32,7 +34,9 @@
 		CE5D967428FF2F1100B33196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5D967628FF2F1100B33196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE74B4262934F96200F9781D /* ConsumoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumoAPI.swift; sourceTree = "<group>"; };
-		CE74B4282934FE6B00F9781D /* Customizacao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customizacao.swift; sourceTree = "<group>"; };
+		CE74B42E293533C800F9781D /* CustomizacaoBotao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizacaoBotao.swift; sourceTree = "<group>"; };
+		CE74B4302935386A00F9781D /* CustomizacaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizacaoView.swift; sourceTree = "<group>"; };
+		CE74B432293538E100F9781D /* CustomizacaoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizacaoTextField.swift; sourceTree = "<group>"; };
 		CE82C8EE2901C12D00006CB2 /* CelulaHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelulaHome.swift; sourceTree = "<group>"; };
 		CE82C8F02901C14000006CB2 /* RetornoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetornoAPI.swift; sourceTree = "<group>"; };
 		CE97260529117A030082F503 /* Carteira.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carteira.swift; sourceTree = "<group>"; };
@@ -106,7 +110,9 @@
 			children = (
 				CE82C8EE2901C12D00006CB2 /* CelulaHome.swift */,
 				CE97260529117A030082F503 /* Carteira.swift */,
-				CE74B4282934FE6B00F9781D /* Customizacao.swift */,
+				CE74B42E293533C800F9781D /* CustomizacaoBotao.swift */,
+				CE74B4302935386A00F9781D /* CustomizacaoView.swift */,
+				CE74B432293538E100F9781D /* CustomizacaoTextField.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,15 +197,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE74B42F293533C800F9781D /* CustomizacaoBotao.swift in Sources */,
+				CE74B433293538E100F9781D /* CustomizacaoTextField.swift in Sources */,
 				CE97260629117A030082F503 /* Carteira.swift in Sources */,
 				CE82C8F12901C14000006CB2 /* RetornoAPI.swift in Sources */,
 				CE5D966D28FF2F1000B33196 /* HomeViewController.swift in Sources */,
-				CE74B4292934FE6B00F9781D /* Customizacao.swift in Sources */,
 				CEEC97D429084E1C0086D047 /* MensagemViewController.swift in Sources */,
 				CE5D966928FF2F1000B33196 /* AppDelegate.swift in Sources */,
 				CEF05C0D2902E13B00915AC4 /* CambioViewController.swift in Sources */,
 				CE82C8EF2901C12D00006CB2 /* CelulaHome.swift in Sources */,
 				CE5D966B28FF2F1000B33196 /* SceneDelegate.swift in Sources */,
+				CE74B4312935386A00F9781D /* CustomizacaoView.swift in Sources */,
 				CE74B4272934F96200F9781D /* ConsumoAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

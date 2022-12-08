@@ -2,8 +2,7 @@ import Foundation
 import UIKit
 
 extension HomeViewController {
-    //MARK: - API (Requisição)
-
+    
     func requisicaoAPI() {
         guard let url = URL(string: URLApi) else { return }
         let session = URLSession(configuration: .default)
@@ -21,7 +20,6 @@ extension HomeViewController {
         task.resume()
     }
     
-    // JSON Decoder
     func decoderJSON(_ financeData: Data) {
         let decoder = JSONDecoder()
         do {
@@ -46,4 +44,3 @@ extension HomeViewController {
         }
     }
 }
-
